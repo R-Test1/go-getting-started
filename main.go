@@ -11,6 +11,7 @@ import (
 )
 
 func main() {
+	log.Println("Hello, world!")
 	port := os.Getenv("PORT")
 
 	if port == "" {
