@@ -28,7 +28,7 @@ func main() {
 		if err != nil {
 			 log.Println(err)
 		}
-		c.HTML(http.StatusOK, "index.tmpl.html", output)
+		c.HTML(http.StatusOK, "index.tmpl.html", string(output))
 	})
 
 	router.Run(":" + port)
