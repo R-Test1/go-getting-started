@@ -5,13 +5,12 @@ import (
 	"net/http"
 	"os"
 
-	
+	"os/exec"
 	"github.com/gin-gonic/gin"
 	_ "github.com/heroku/x/hmetrics/onload"
 )
 
 func main() {
-	log.Println("Hello, world!")
 	port := os.Getenv("PORT")
 
 	if port == "" {
@@ -24,7 +23,12 @@ func main() {
 	router.Static("/static", "static")
 
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl.html", nil)
+		cmd := exec.Command("whoami")
+		output, err := cmd.Output()
+		if err != nil {
+			 log.Println(err)
+		}
+		c.HTML(http.StatusOK, "index.tmpl.html", output)
 	})
 
 	router.Run(":" + port)
